@@ -1,5 +1,5 @@
 CREATE TABLE drinks(
-   idDrink                     INTEGER  NOT NULL PRIMARY KEY 
+   idDrink                     INTEGER  NOT NULL PRIMARY KEY
   ,strDrink                    VARCHAR(37) NOT NULL
   ,strDrinkAlternate           VARCHAR(30)
   ,strDrinkES                  VARCHAR(30)
