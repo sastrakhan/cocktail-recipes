@@ -15,7 +15,6 @@ export const SearchDrinks = ({ loading, onSearchHandler }) => {
       allowClear
       onSearch={onSearch}
       loading={loading}
-      style={{margin: '5px 0 20px 0'}}
     />
   );
 };
