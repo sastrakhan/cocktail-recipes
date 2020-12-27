@@ -21,6 +21,7 @@ from drinks import views
 
 router = routers.DefaultRouter()
 router.register(r'drinks', views.DrinksView, 'drinks')
+router.register(r'categories', views.CategoryView, 'categories')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

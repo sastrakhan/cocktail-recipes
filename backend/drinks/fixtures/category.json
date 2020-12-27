@@ -1,0 +1,79 @@
+[
+  {
+    "model": "drinks.category",
+    "pk": 1,
+    "fields": {
+      "name": "Beer"
+    }
+  },
+  {
+    "model": "drinks.category",
+    "pk": 2,
+    "fields": {
+      "name": "Cocktail"
+    }
+  },
+  {
+    "model": "drinks.category",
+    "pk": 3,
+    "fields": {
+      "name": "Cocoa"
+    }
+  },
+  {
+    "model": "drinks.category",
+    "pk": 4,
+    "fields": {
+      "name": "Coffee / Tea"
+    }
+  },
+  {
+    "model": "drinks.category",
+    "pk": 5,
+    "fields": {
+      "name": "Homemade Liqueur"
+    }
+  },
+  {
+    "model": "drinks.category",
+    "pk": 6,
+    "fields": {
+      "name": "Milk / Float / Shake"
+    }
+  },
+  {
+    "model": "drinks.category",
+    "pk": 7,
+    "fields": {
+      "name": "Ordinary Drink"
+    }
+  },
+  {
+    "model": "drinks.category",
+    "pk": 8,
+    "fields": {
+      "name": "Other/Unknown"
+    }
+  },
+  {
+    "model": "drinks.category",
+    "pk": 9,
+    "fields": {
+      "name": "Punch / Party Drink"
+    }
+  },
+  {
+    "model": "drinks.category",
+    "pk": 10,
+    "fields": {
+      "name": "Shot"
+    }
+  },
+  {
+    "model": "drinks.category",
+    "pk": 11,
+    "fields": {
+      "name": "Soft Drink / Soda"
+    }
+  }
+]

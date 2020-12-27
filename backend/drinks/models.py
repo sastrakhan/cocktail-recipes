@@ -58,3 +58,7 @@ class Drinks(models.Model):
 
     class Meta:
         db_table = 'drinks'
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=20)
