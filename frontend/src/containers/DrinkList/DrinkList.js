@@ -22,7 +22,9 @@ export const DrinkList = () => {
   };
 
   useEffect(() => {
-    getDrinksHandler();
+    if (!drinks.length) {
+      getDrinksHandler();
+    }
   }, []);
 
   return (

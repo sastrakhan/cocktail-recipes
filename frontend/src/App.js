@@ -21,7 +21,7 @@ function App() {
           <Route path="/drink/:id" render= {routeProps => (<DrinkDetail {...routeProps} />)} />
         </Switch>
       </Content>
-      <Footer>Kamille Norris</Footer>
+      <Footer style={{ textAlign: 'center' }}>Kamille Norris</Footer>
     </Layout>
   );
 }

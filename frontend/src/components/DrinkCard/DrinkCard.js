@@ -1,6 +1,8 @@
 import React from 'react';
-import {Avatar, Card} from 'antd';
+import {Avatar, Card, Typography} from 'antd';
 import { Link } from 'react-router-dom';
+
+const { Text } = Typography;
 
 export const DrinkCard = ({drink}) => {
   const drinkDetailLink = (
@@ -26,6 +28,7 @@ export const DrinkCard = ({drink}) => {
           <Avatar src={drink?.strDrinkThumb}/>
         }
         title={drink?.strDrink}
+        description={<><Text strong>Category:</Text> {drink?.strCategory}</>}
       />
     </Card>
   );
