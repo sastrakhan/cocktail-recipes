@@ -1,4 +1,3 @@
-import { MoreOutlined } from '@ant-design/icons';
 import React from 'react';
 import {Avatar, Card} from 'antd';
 import { Link } from 'react-router-dom';
@@ -11,7 +10,7 @@ export const DrinkCard = ({drink}) => {
         state: { drink }
       }}
     >
-      <MoreOutlined key="more" /> More Details
+      More Details
     </Link>
   );
 

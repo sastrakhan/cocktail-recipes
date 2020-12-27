@@ -18,3 +18,16 @@ export const getDrinks = async (params) => {
     return error;
   }
 };
+
+export const getDrinkById = async (id) => {
+  try {
+    const response = await axios.get(`/api/drinks/${id}/`);
+    return response.data;
+  } catch (error) {
+    notification.error({
+      message: 'Error',
+      description: error.response.data.detail
+    });
+    return error;
+  }
+};
