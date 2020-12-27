@@ -2,3 +2,5 @@
 backend/backend/__pycaache__/*
 backend/drinks/__pycaache__/*
 .DS_Store
+
+frontend/.env
