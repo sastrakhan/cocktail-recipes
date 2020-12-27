@@ -8,8 +8,8 @@ class NumberInFilter(BaseInFilter, NumberFilter):
 
 
 class CategoryFilter(FilterSet):
-    category = NumberInFilter(field_name='category_link', lookup_expr='in')
+    category = NumberInFilter(field_name='category', lookup_expr='in')
 
     class Meta:
         model = Drinks
-        fields = ['category_link']
+        fields = ['category']

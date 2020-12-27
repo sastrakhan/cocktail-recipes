@@ -16,8 +16,8 @@ class DrinksView(viewsets.ModelViewSet):
     ]
     filterset_class = CategoryFilter
     ordering_fields = '__all__'
-    ordering = ['strDrink']
-    search_fields = ['strDrink', 'strIngredient1']
+    ordering = ['name']
+    search_fields = ['name', 'ingredient1']
 
 
 class CategoryView(viewsets.ModelViewSet):
