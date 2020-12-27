@@ -1,5 +1,6 @@
 import django_filters
 from rest_framework import filters, viewsets
+
 from .serializers import CategorySerializer, DrinksSerializer
 from .models import Category, Drinks
 

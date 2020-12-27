@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Col, List, Row } from 'antd';
-import { getDrinks } from '../../services/drinks';
+import { getCategories, getDrinks } from '../../services/drinks';
 import { DrinkCard } from '../../components/DrinkCard/DrinkCard';
 import { FilterDrinks } from '../../components/FilterDrinks/FilterDrinks';
 import { SearchDrinks } from '../../components/SearchDrinks/SearchDrinks';
 import { SortDrinks } from '../../components/SortDrinks/SortDrinks';
 
 export const DrinkList = () => {
-  const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [categoriesLoading, setCategoriesLoading] = useState([]);
   const [drinks, setDrinks] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [queryParams, setQueryParams] = useState({});
 
   const getDrinksHandler = async (params = {}) => {
     try {
       setLoading(true);
-      const newParams = {...queryParams, ...params};
+      const newParams = { ...queryParams, ...params };
       setQueryParams(newParams);
       const data = await getDrinks(newParams);
       setDrinks(data);
@@ -24,9 +26,23 @@ export const DrinkList = () => {
     }
   };
 
+  const getCategoriesHandler = async () => {
+    try {
+      setCategoriesLoading(true);
+      const data = await getCategories();
+      setCategories(data);
+      setCategoriesLoading(false);
+    } catch (error) {
+      setCategoriesLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (!drinks.length) {
       getDrinksHandler();
+    }
+    if (!categories.length) {
+      getCategoriesHandler();
     }
   }, []);
 
@@ -39,7 +55,7 @@ export const DrinkList = () => {
               <SearchDrinks loading={loading} onSearchHandler={getDrinksHandler}/>
             </Col>
             <Col md={6} lg={3}>
-              <FilterDrinks drinks={drinks} onFilterHandler={getDrinksHandler}/>
+              <FilterDrinks categories={categories} onFilterHandler={getDrinksHandler} loading={categoriesLoading}/>
             </Col>
             <Col md={6} lg={5}>
               <SortDrinks drinks={drinks} onSortHandler={getDrinksHandler}/>
@@ -53,7 +69,7 @@ export const DrinkList = () => {
         loading={loading}
         renderItem={drink => (
           <List.Item>
-            <DrinkCard drink={drink} />
+            <DrinkCard drink={drink}/>
           </List.Item>
         )}
       />

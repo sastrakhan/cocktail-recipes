@@ -1,23 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Checkbox, Dropdown, Menu } from 'antd';
-import { FilterOutlined } from '@ant-design/icons';
+import { FilterOutlined, LoadingOutlined } from '@ant-design/icons';
 
-export const FilterDrinks = ({ drinks, onFilterHandler }) => {
-  const allCategories = drinks.map(({ strCategory }) => strCategory);
-  const uniqueCategories = [...new Set(allCategories)];
+export const FilterDrinks = ({ categories, loading, onFilterHandler }) => {
+  const [selectedCategory, setSelectedCategory] = useState('');
 
-  const onFilter = (event) => {
+  const onFilter = (category) => {
+    setSelectedCategory((prevState) => prevState === category ? '' : category);
     onFilterHandler({
-      strCategory: event?.target?.value,
+      strCategory: selectedCategory === category ? '' : category,
     });
   };
 
   const menu = (
     <Menu>
       {
-        uniqueCategories.map((category, index) => (
-          <Menu.Item key={index}>
-            <Checkbox onChange={onFilter} value={category}>{category}</Checkbox>
+        categories.map(({ id, name }) => (
+          <Menu.Item key={id}>
+            <Checkbox
+              onChange={() => onFilter(name)}
+              disabled={selectedCategory.length && selectedCategory !== name}
+            >
+              {name}
+            </Checkbox>
           </Menu.Item>
         ))
       }
@@ -25,7 +30,7 @@ export const FilterDrinks = ({ drinks, onFilterHandler }) => {
   );
 
   return (
-    <Dropdown.Button overlay={menu} icon={<FilterOutlined/>}>
+    <Dropdown.Button overlay={menu} icon={loading ? <LoadingOutlined/> : <FilterOutlined/>}>
       Filter by Category
     </Dropdown.Button>
   );

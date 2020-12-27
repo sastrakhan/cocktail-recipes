@@ -1,5 +1,5 @@
 import { notification } from 'antd';
-import { setup } from 'axios-cache-adapter'
+import { setup } from 'axios-cache-adapter';
 
 const api = setup({
   // `axios` options
@@ -9,7 +9,20 @@ const api = setup({
   cache: {
     maxAge: 15 * 60 * 1000
   }
-})
+});
+
+export const getCategories = async () => {
+  try {
+    const response = await api.get('/api/categories/');
+    return response.data;
+  } catch (error) {
+    notification.error({
+      message: 'Error',
+      description: error.response.data.detail
+    });
+    return error;
+  }
+};
 
 export const getDrinks = async (params) => {
   const queryParams = new URLSearchParams(params);
