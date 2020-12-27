@@ -1,6 +1,8 @@
 import { notification } from 'antd';
 import axios from 'axios';
 
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+
 export const getDrinks = async (params) => {
   const queryParams = new URLSearchParams(params);
   const queryString = Object.keys(params).length ? `?${queryParams}` : '';
