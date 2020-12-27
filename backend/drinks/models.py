@@ -13,6 +13,7 @@ class Drinks(models.Model):
     strTags = models.CharField(max_length=42, blank=True, null=True)
     strVideo = models.CharField(max_length=30, blank=True, null=True)
     strCategory = models.CharField(max_length=20)
+    category_link = models.ForeignKey("Category", on_delete=models.CASCADE, blank=True, null=True)
     strIBA = models.CharField(max_length=21, blank=True, null=True)
     strAlcoholic = models.CharField(max_length=16, blank=True, null=True)
     strGlass = models.CharField(max_length=24)

@@ -1,6 +1,7 @@
 import django_filters
 from rest_framework import filters, viewsets
 
+from .filters import CategoryFilter
 from .serializers import CategorySerializer, DrinksSerializer
 from .models import Category, Drinks
 
@@ -13,7 +14,7 @@ class DrinksView(viewsets.ModelViewSet):
         filters.OrderingFilter,
         filters.SearchFilter,
     ]
-    filterset_fields = ['strCategory']
+    filterset_class = CategoryFilter
     ordering_fields = '__all__'
     ordering = ['strDrink']
     search_fields = ['strDrink', 'strIngredient1']
