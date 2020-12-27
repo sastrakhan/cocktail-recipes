@@ -9,11 +9,14 @@ import { SortDrinks } from '../../components/SortDrinks/SortDrinks';
 export const DrinkList = () => {
   const [loading, setLoading] = useState(false);
   const [drinks, setDrinks] = useState([]);
+  const [queryParams, setQueryParams] = useState({});
 
   const getDrinksHandler = async (params = {}) => {
     try {
       setLoading(true);
-      const data = await getDrinks(params);
+      const newParams = {...queryParams, ...params};
+      setQueryParams(newParams);
+      const data = await getDrinks(newParams);
       setDrinks(data);
       setLoading(false);
     } catch (error) {
