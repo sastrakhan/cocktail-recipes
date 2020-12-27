@@ -13,38 +13,51 @@ export const DrinkList = () => {
   const [loading, setLoading] = useState(false);
   const [queryParams, setQueryParams] = useState({});
 
+  const mapDrinkCategories = () => {
+    setDrinks((prevState) => prevState.map((drink) => ({
+      ...drink,
+      ...{category: categories.find(({id}) => id === drink.category)}
+    })));
+  };
+
   const getDrinksHandler = async (params = {}) => {
+    setLoading(true);
     try {
-      setLoading(true);
       const newParams = { ...queryParams, ...params };
       setQueryParams(newParams);
       const data = await getDrinks(newParams);
       setDrinks(data);
       setLoading(false);
+      return data;
     } catch (error) {
       setLoading(false);
+      return error;
     }
   };
 
   const getCategoriesHandler = async () => {
+    setCategoriesLoading(true);
     try {
-      setCategoriesLoading(true);
       const data = await getCategories();
       setCategories(data);
       setCategoriesLoading(false);
+      return data;
     } catch (error) {
       setCategoriesLoading(false);
+      return error;
     }
   };
 
   useEffect(() => {
     if (!drinks.length) {
-      getDrinksHandler();
-    }
-    if (!categories.length) {
-      getCategoriesHandler();
+      getCategoriesHandler()
+        .then(() => getDrinksHandler());
     }
   }, []);
+
+  useEffect(() => {
+    mapDrinkCategories();
+  }, [loading]);
 
   return (
     <>
@@ -66,7 +79,7 @@ export const DrinkList = () => {
       <List
         dataSource={drinks}
         grid={{ gutter: 16, column: 4 }}
-        loading={loading}
+        loading={loading && categoriesLoading}
         renderItem={drink => (
           <List.Item>
             <DrinkCard drink={drink}/>

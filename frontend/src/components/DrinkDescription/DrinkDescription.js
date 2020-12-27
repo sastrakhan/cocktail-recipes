@@ -5,33 +5,33 @@ import { ListItems } from '../ListItems/ListItems';
 export const DrinkDescription = ({drink}) => (
   <Descriptions title="Drink Info" layout="vertical" bordered>
     <Descriptions.Item label="Drink">
-      {drink?.strDrink}
+      {drink?.name}
     </Descriptions.Item>
-    <Descriptions.Item label="Category">{drink?.strCategory}</Descriptions.Item>
-    <Descriptions.Item label="Alcoholic">{drink?.strAlcoholic === 'Alcoholic' ? 'Yes' : 'No'}</Descriptions.Item>
+    <Descriptions.Item label="Category">{drink?.category?.name}</Descriptions.Item>
+    <Descriptions.Item label="Alcoholic">{drink?.alcoholic === 'Alcoholic' ? 'Yes' : 'No'}</Descriptions.Item>
     <Descriptions.Item label="Image">
       <Image
         width={200}
-        src={drink?.strDrinkThumb}
+        src={drink?.image}
       />
     </Descriptions.Item>
-    <Descriptions.Item label="Instructions" span={2}>{drink?.strInstructions}</Descriptions.Item>
+    <Descriptions.Item label="Instructions" span={2}>{drink?.instructions}</Descriptions.Item>
     <Descriptions.Item label="Ingredients">
       <ul>
-        <ListItems items={drink} filterKey="strIngredient"/>
+        <ListItems items={drink} filterKey="ingredient"/>
       </ul>
     </Descriptions.Item>
     <Descriptions.Item label="Measurements">
       <ul>
-        <ListItems items={drink} filterKey="strMeasure"/>
+        <ListItems items={drink} filterKey="measure"/>
       </ul>
     </Descriptions.Item>
-    <Descriptions.Item label="Date Modified">{drink?.dateModified}</Descriptions.Item>
+    <Descriptions.Item label="Date Modified">{drink?.date_modified}</Descriptions.Item>
     {
-      drink?.strTags?.length ?
+      drink?.tags?.length ?
         <Descriptions.Item label="Tags" span={3}>
           {
-            drink?.strTags?.split(',')?.map((tag) => (
+            drink?.tags?.split(',')?.map((tag) => (
               <Tag>{tag}</Tag>
             ))
           }

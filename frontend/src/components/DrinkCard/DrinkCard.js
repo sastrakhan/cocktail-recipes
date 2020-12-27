@@ -8,7 +8,7 @@ export const DrinkCard = ({drink}) => {
   const drinkDetailLink = (
     <Link
       to={{
-        pathname: `/drink/${drink?.idDrink}`,
+        pathname: `/drink/${drink?.id}`,
         state: { drink }
       }}
     >
@@ -25,10 +25,10 @@ export const DrinkCard = ({drink}) => {
     >
       <Card.Meta
         avatar={
-          <Avatar src={drink?.strDrinkThumb}/>
+          <Avatar src={drink?.image}/>
         }
-        title={drink?.strDrink}
-        description={<><Text strong>Category:</Text> {drink?.strCategory}</>}
+        title={drink?.name}
+        description={<><Text strong>Category:</Text> {drink?.category?.name}</>}
       />
     </Card>
   );

@@ -3,7 +3,7 @@ import { Dropdown, Menu, Tooltip } from 'antd';
 import { SortAscendingOutlined, SortDescendingOutlined } from '@ant-design/icons';
 
 export const SortDrinks = ({ drinks, onSortHandler }) => {
-  const [currentSort, setCurrentSort] = useState('strDrink');
+  const [currentSort, setCurrentSort] = useState('name');
   const [sortDirection, setSortDirection] = useState('Ascending');
   const allSortOptions = Object.keys(drinks[0]);
 

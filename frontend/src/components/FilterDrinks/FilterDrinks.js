@@ -1,26 +1,34 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Checkbox, Dropdown, Menu } from 'antd';
 import { FilterOutlined, LoadingOutlined } from '@ant-design/icons';
 
 export const FilterDrinks = ({ categories, loading, onFilterHandler }) => {
   const [selectedCategory, setSelectedCategory] = useState('');
 
-  const onFilter = (category) => {
-    setSelectedCategory((prevState) => prevState === category ? '' : category);
-    onFilterHandler({
-      strCategory: selectedCategory === category ? '' : category,
+  const onFilter = (id) => {
+    setSelectedCategory((prevState) => {
+      if (prevState === id) {
+        return selectedCategory.filter(category => category.id !== id)
+      } else {
+        return [...selectedCategory, id]
+      }
     });
   };
+
+  useEffect(() => {
+    if (selectedCategory.length) {
+      onFilterHandler({
+        category: selectedCategory.join(',')
+      });
+    }
+  }, [selectedCategory])
 
   const menu = (
     <Menu>
       {
         categories.map(({ id, name }) => (
           <Menu.Item key={id}>
-            <Checkbox
-              onChange={() => onFilter(name)}
-              disabled={selectedCategory.length && selectedCategory !== name}
-            >
+            <Checkbox onChange={() => onFilter(id)}>
               {name}
             </Checkbox>
           </Menu.Item>
