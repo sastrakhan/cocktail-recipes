@@ -1,37 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Empty, Spin } from 'antd';
+import { fetchDrink, selectDrinkById } from '../../features/drinks/drinksSlice';
 import { DrinkDescription } from '../../components/DrinkDescription/DrinkDescription';
-import { getDrinkById } from '../../services/drinks';
 
-export const DrinkDetail = ({ location, match }) => {
-  const drink  = location?.state?.drink;
-  const [currentDrink, setCurrentDrink] = useState(drink);
-  const [loading, setLoading] = useState(false);
+export const DrinkDetail = ({ match }) => {
+  const dispatch = useDispatch()
+  const drinkId = Number(match.params.id);
 
-  const getDrink = async () => {
-    const { id } = match.params;
-    try {
-      setLoading(true);
-      const data = await getDrinkById(id);
-      setCurrentDrink(data);
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-    }
-  };
+  const drink = useSelector((state) => selectDrinkById(state, drinkId))
+  const { status } = useSelector((state) => state?.drinks);
 
   useEffect(() => {
-    if (!drink && !currentDrink) {
-      getDrink();
+    if (status === 'idle') {
+      dispatch(fetchDrink(drinkId));
     }
-  }, [])
+  }, [drinkId, status, dispatch]);
 
-
-  if (!loading && !currentDrink) {
-    return <Empty />
-  } else if (loading) {
+  if (status === 'succeeded' && drink) {
+    return <DrinkDescription drink={drink} />
+  } else if (status === 'loading') {
     return <Spin />
   } else {
-    return <DrinkDescription drink={currentDrink} />
+    return <Empty />
   }
 };

@@ -1,74 +1,52 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Col, List, Row } from 'antd';
-import { getCategories, getDrinks } from '../../services/drinks';
+import { fetchCategories } from '../../features/categories/categoriesSlice';
+import { fetchDrinks } from '../../features/drinks/drinksSlice';
 import { DrinkCard } from '../../components/DrinkCard/DrinkCard';
 import { FilterDrinks } from '../../components/FilterDrinks/FilterDrinks';
 import { SearchDrinks } from '../../components/SearchDrinks/SearchDrinks';
 import { SortDrinks } from '../../components/SortDrinks/SortDrinks';
 
 export const DrinkList = () => {
-  const [categories, setCategories] = useState([]);
-  const [categoriesLoading, setCategoriesLoading] = useState([]);
-  const [drinks, setDrinks] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch()
   const [queryParams, setQueryParams] = useState({});
 
-  const mapDrinkCategories = () => {
-    setDrinks((prevState) => prevState.map((drink) => ({
-      ...drink,
-      ...{category: categories.find(({id}) => id === drink.category)}
-    })));
-  };
+  const {
+    drinks,
+    status: drinksStatus,
+  } = useSelector((state) => state?.drinks) || {};
 
-  const getDrinksHandler = async (params = {}) => {
-    setLoading(true);
-    try {
-      const newParams = { ...queryParams, ...params };
-      setQueryParams(newParams);
-      const data = await getDrinks(newParams);
-      setDrinks(data);
-      setLoading(false);
-      return data;
-    } catch (error) {
-      setLoading(false);
-      return error;
-    }
-  };
+  const {
+    categories,
+    status: categoriesStatus,
+  } = useSelector((state) => state?.categories) || {}
 
-  const getCategoriesHandler = async () => {
-    setCategoriesLoading(true);
-    try {
-      const data = await getCategories();
-      setCategories(data);
-      setCategoriesLoading(false);
-      return data;
-    } catch (error) {
-      setCategoriesLoading(false);
-      return error;
-    }
+  const getDrinksHandler = (params = {}) => {
+    const newParams = { ...queryParams, ...params };
+    setQueryParams(newParams);
+    dispatch(fetchDrinks(newParams));
   };
 
   useEffect(() => {
-    if (!drinks.length) {
-      getCategoriesHandler()
-        .then(() => getDrinksHandler());
+    if (drinksStatus === 'idle') {
+      dispatch(fetchDrinks());
     }
-  }, []);
-
-  useEffect(() => {
-    mapDrinkCategories();
-  }, [loading]);
+    if (categoriesStatus === 'idle') {
+      dispatch(fetchCategories());
+    }
+  }, [drinksStatus, categoriesStatus, dispatch]);
 
   return (
     <>
       {
-        drinks.length ? (
+        drinks && drinks.length ? (
           <Row gutter={[16, 16]}>
             <Col md={12} lg={16}>
-              <SearchDrinks loading={loading} onSearchHandler={getDrinksHandler}/>
+              <SearchDrinks loading={drinksStatus === 'loading'} onSearchHandler={getDrinksHandler}/>
             </Col>
             <Col md={6} lg={3}>
-              <FilterDrinks categories={categories} onFilterHandler={getDrinksHandler} loading={categoriesLoading}/>
+              <FilterDrinks categories={categories} onFilterHandler={getDrinksHandler} loading={categoriesStatus === 'loading'}/>
             </Col>
             <Col md={6} lg={5}>
               <SortDrinks drinks={drinks} onSortHandler={getDrinksHandler}/>
@@ -79,7 +57,7 @@ export const DrinkList = () => {
       <List
         dataSource={drinks}
         grid={{ gutter: 16, column: 4 }}
-        loading={loading && categoriesLoading}
+        loading={drinksStatus === 'loading' || categoriesStatus === 'loading'}
         renderItem={drink => (
           <List.Item>
             <DrinkCard drink={drink}/>

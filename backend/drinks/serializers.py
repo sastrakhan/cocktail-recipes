@@ -4,6 +4,8 @@ from drinks.models import Category, Drinks
 
 
 class DrinksSerializer(serializers.ModelSerializer):
+    category_name = serializers.CharField(source='category.name')
+
     class Meta:
         model = Drinks
         fields = '__all__'

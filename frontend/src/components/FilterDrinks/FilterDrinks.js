@@ -21,6 +21,7 @@ export const FilterDrinks = ({ categories, loading, onFilterHandler }) => {
         category: selectedCategory.join(',')
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCategory])
 
   const menu = (

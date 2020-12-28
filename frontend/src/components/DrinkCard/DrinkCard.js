@@ -6,12 +6,7 @@ const { Text } = Typography;
 
 export const DrinkCard = ({drink}) => {
   const drinkDetailLink = (
-    <Link
-      to={{
-        pathname: `/drink/${drink?.id}`,
-        state: { drink }
-      }}
-    >
+    <Link to={{pathname: `/drink/${drink?.id}`}}>
       More Details
     </Link>
   );
@@ -28,7 +23,7 @@ export const DrinkCard = ({drink}) => {
           <Avatar src={drink?.image}/>
         }
         title={drink?.name}
-        description={<><Text strong>Category:</Text> {drink?.category?.name}</>}
+        description={<><Text strong>Category:</Text> {drink?.category_name}</>}
       />
     </Card>
   );

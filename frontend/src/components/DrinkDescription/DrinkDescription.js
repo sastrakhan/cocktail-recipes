@@ -7,7 +7,7 @@ export const DrinkDescription = ({drink}) => (
     <Descriptions.Item label="Drink">
       {drink?.name}
     </Descriptions.Item>
-    <Descriptions.Item label="Category">{drink?.category?.name}</Descriptions.Item>
+    <Descriptions.Item label="Category">{drink?.category_name}</Descriptions.Item>
     <Descriptions.Item label="Alcoholic">{drink?.alcoholic === 'Alcoholic' ? 'Yes' : 'No'}</Descriptions.Item>
     <Descriptions.Item label="Image">
       <Image
