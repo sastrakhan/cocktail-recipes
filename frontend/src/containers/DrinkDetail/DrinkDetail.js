@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Empty, Spin } from 'antd';
+import { Link } from 'react-router-dom';
+import { Empty, Space, Spin } from 'antd';
 import { fetchDrink, selectDrinkById } from '../../features/drinks/drinksSlice';
 import { DrinkDescription } from '../../components/DrinkDescription/DrinkDescription';
 
@@ -17,11 +18,21 @@ export const DrinkDetail = ({ match }) => {
     }
   }, [drinkId, status, dispatch]);
 
+  let content;
   if (status === 'succeeded' && drink) {
-    return <DrinkDescription drink={drink} />
+    content = <DrinkDescription drink={drink} />
   } else if (status === 'loading') {
-    return <Spin />
+    content = <Spin />
   } else {
-    return <Empty />
+    content = <Empty />
   }
+
+  return (
+    <Space direction="vertical">
+      {content}
+      <Link to={{pathname: '/'}}>
+        Go back
+      </Link>
+    </Space>
+  )
 };

@@ -2,14 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="810a5e4b-1aee-4716-9386-97d44b3da496" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/containers/DrinkList/DrinkListHeader.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.eslintcache" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintcache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FilterDrinks/FilterDrinks.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FilterDrinks/FilterDrinks.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SearchDrinks/SearchDrinks.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SearchDrinks/SearchDrinks.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SortDrinks/SortDrinks.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SortDrinks/SortDrinks.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DrinkDescription/DrinkDescription.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DrinkDescription/DrinkDescription.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/containers/DrinkDetail/DrinkDetail.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/DrinkDetail/DrinkDetail.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/containers/DrinkList/DrinkList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/containers/DrinkList/DrinkList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/drinks/drinksSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/drinks/drinksSlice.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +51,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1609026316036</updated>
-      <workItem from="1609026317239" duration="43701000" />
+      <workItem from="1609026317239" duration="44749000" />
     </task>
     <servers />
   </component>

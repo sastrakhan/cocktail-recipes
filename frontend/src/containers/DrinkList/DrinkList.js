@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Col, List, Row } from 'antd';
+import { List } from 'antd';
+import { DrinkListHeader } from './DrinkListHeader';
 import { fetchCategories } from '../../features/categories/categoriesSlice';
 import {
   fetchDrinks,
@@ -8,9 +9,6 @@ import {
   resetFilteredDrinks
 } from '../../features/drinks/drinksSlice';
 import { DrinkCard } from '../../components/DrinkCard/DrinkCard';
-import { FilterDrinks } from '../../components/FilterDrinks/FilterDrinks';
-import { SearchDrinks } from '../../components/SearchDrinks/SearchDrinks';
-import { SortDrinks } from '../../components/SortDrinks/SortDrinks';
 
 export const DrinkList = () => {
   const dispatch = useDispatch()
@@ -62,39 +60,14 @@ export const DrinkList = () => {
     <>
       {
         drinksStatus !==  'idle' && drinksStatus !== 'failed' ? (
-          <Row gutter={[16, 16]}>
-            <Col md={9} lg={14}>
-              <SearchDrinks
-                loading={isLoading}
-                onSearchHandler={getDrinksHandler}
-                reset={resetCount}
-              />
-            </Col>
-            <Col md={6} lg={3}>
-              <FilterDrinks
-                categories={categories}
-                onFilterHandler={getDrinksHandler}
-                loading={isLoading}
-                reset={resetCount}
-              />
-            </Col>
-            <Col md={6} lg={5}>
-              <SortDrinks
-                drinks={filteredDrinks}
-                onSortHandler={getDrinksHandler}
-                reset={resetCount}
-                loading={isLoading}
-              />
-            </Col>
-            <Col md={3} lg={2} style={{textAlign: 'right'}}>
-              <Button
-                onClick={resetHandler}
-                loading={isLoading}
-              >
-                Reset Filters
-              </Button>
-            </Col>
-          </Row>
+          <DrinkListHeader
+            categories={categories}
+            filteredDrinks={filteredDrinks}
+            isLoading={isLoading}
+            getDrinksHandler={getDrinksHandler}
+            resetCount={resetCount}
+            resetHandler={resetHandler}
+          />
         ) : null
       }
       <List
