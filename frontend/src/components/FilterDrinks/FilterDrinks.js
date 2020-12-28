@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Checkbox, Dropdown, Menu } from 'antd';
+import { Badge, Checkbox, Dropdown, Menu, Space } from 'antd';
 import { FilterOutlined, LoadingOutlined } from '@ant-design/icons';
 
-export const FilterDrinks = ({ categories, loading, onFilterHandler }) => {
+export const FilterDrinks = ({ categories, loading, onFilterHandler, reset }) => {
   const [selectedCategory, setSelectedCategory] = useState([]);
 
   const onFilter = (id) => {
@@ -22,14 +22,21 @@ export const FilterDrinks = ({ categories, loading, onFilterHandler }) => {
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedCategory])
+  }, [selectedCategory]);
+
+  useEffect(() => {
+    setSelectedCategory([]);
+  }, [reset]);
 
   const menu = (
     <Menu>
       {
         categories.map(({ id, name }) => (
           <Menu.Item key={id}>
-            <Checkbox onChange={() => onFilter(id)}>
+            <Checkbox
+              onChange={() => onFilter(id)}
+              checked={selectedCategory.includes(id)}
+            >
               {name}
             </Checkbox>
           </Menu.Item>
@@ -39,8 +46,15 @@ export const FilterDrinks = ({ categories, loading, onFilterHandler }) => {
   );
 
   return (
-    <Dropdown.Button overlay={menu} icon={loading ? <LoadingOutlined/> : <FilterOutlined/>}>
-      Filter by Category
+    <Dropdown.Button
+      overlay={menu}
+      icon={loading ? <LoadingOutlined/> : <FilterOutlined/>}
+      disabled={loading}
+    >
+      <Space align="center">
+        Filter by Category
+        <Badge count={selectedCategory.length} size="small" />
+      </Space>
     </Dropdown.Button>
   );
 };

@@ -31,11 +31,7 @@ const drinks = createSlice({
   name: 'drinks',
   initialState: initialState,
   reducers: {
-    resetFilteredDrinksLoading(state) {
-      state.status = 'loading';
-    },
-    resetFilteredDrinksFulfilled(state) {
-      state.status = 'succeeded';
+    resetFilteredDrinks(state) {
       state.filteredDrinks = state.drinks;
     },
   },
@@ -80,10 +76,7 @@ const drinks = createSlice({
   },
 });
 
-export const {
-  resetFilteredDrinksLoading,
-  resetFilteredDrinksFulfilled,
-} = drinks.actions;
+export const { resetFilteredDrinks } = drinks.actions;
 
 export default drinks.reducer;
 

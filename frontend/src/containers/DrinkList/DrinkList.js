@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Col, List, Row } from 'antd';
+import { Button, Col, List, Row } from 'antd';
 import { fetchCategories } from '../../features/categories/categoriesSlice';
 import {
   fetchDrinks,
   fetchFilteredDrinks,
-  resetFilteredDrinksFulfilled,
-  resetFilteredDrinksLoading
+  resetFilteredDrinks
 } from '../../features/drinks/drinksSlice';
 import { DrinkCard } from '../../components/DrinkCard/DrinkCard';
 import { FilterDrinks } from '../../components/FilterDrinks/FilterDrinks';
@@ -16,6 +15,7 @@ import { SortDrinks } from '../../components/SortDrinks/SortDrinks';
 export const DrinkList = () => {
   const dispatch = useDispatch()
   const [queryParams, setQueryParams] = useState({});
+  const [resetCount, setResetCount] = useState(0);
 
   const {
     filteredDrinks,
@@ -27,6 +27,11 @@ export const DrinkList = () => {
     status: categoriesStatus,
   } = useSelector((state) => state?.categories) || {}
 
+  const isLoading = (
+    drinksStatus === 'loading' ||
+    categoriesStatus === 'loading'
+  );
+
   const getDrinksHandler = (params = {}) => {
     const newParams = { ...queryParams, ...params };
     setQueryParams(newParams);
@@ -34,9 +39,14 @@ export const DrinkList = () => {
     if (cleanParamValues.length) {
       dispatch(fetchFilteredDrinks(newParams));
     } else {
-      dispatch(resetFilteredDrinksLoading());
-      dispatch(resetFilteredDrinksFulfilled());
+      dispatch(resetFilteredDrinks());
     }
+  };
+
+  const resetHandler = () => {
+    setQueryParams({});
+    dispatch(resetFilteredDrinks());
+    setResetCount(resetCount + 1);
   };
 
   useEffect(() => {
@@ -51,16 +61,38 @@ export const DrinkList = () => {
   return (
     <>
       {
-        filteredDrinks && filteredDrinks.length ? (
+        drinksStatus !==  'idle' && drinksStatus !== 'failed' ? (
           <Row gutter={[16, 16]}>
-            <Col md={12} lg={16}>
-              <SearchDrinks loading={drinksStatus === 'loading'} onSearchHandler={getDrinksHandler}/>
+            <Col md={9} lg={14}>
+              <SearchDrinks
+                loading={isLoading}
+                onSearchHandler={getDrinksHandler}
+                reset={resetCount}
+              />
             </Col>
             <Col md={6} lg={3}>
-              <FilterDrinks categories={categories} onFilterHandler={getDrinksHandler} loading={categoriesStatus === 'loading'}/>
+              <FilterDrinks
+                categories={categories}
+                onFilterHandler={getDrinksHandler}
+                loading={isLoading}
+                reset={resetCount}
+              />
             </Col>
             <Col md={6} lg={5}>
-              <SortDrinks drinks={filteredDrinks} onSortHandler={getDrinksHandler}/>
+              <SortDrinks
+                drinks={filteredDrinks}
+                onSortHandler={getDrinksHandler}
+                reset={resetCount}
+                loading={isLoading}
+              />
+            </Col>
+            <Col md={3} lg={2} style={{textAlign: 'right'}}>
+              <Button
+                onClick={resetHandler}
+                loading={isLoading}
+              >
+                Reset Filters
+              </Button>
             </Col>
           </Row>
         ) : null
@@ -68,7 +100,7 @@ export const DrinkList = () => {
       <List
         dataSource={filteredDrinks}
         grid={{ gutter: 16, column: 4 }}
-        loading={drinksStatus === 'loading' || categoriesStatus === 'loading'}
+        loading={isLoading}
         renderItem={drink => (
           <List.Item>
             <DrinkCard drink={drink}/>
