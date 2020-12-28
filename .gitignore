@@ -4,3 +4,4 @@ backend/drinks/__pycaache__/*
 .DS_Store
 
 frontend/.env
+backend/.env
