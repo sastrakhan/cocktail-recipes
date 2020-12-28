@@ -24,7 +24,7 @@ export const getCategories = async () => {
   }
 };
 
-export const getDrinks = async (params) => {
+export const getDrinks = async (params = {}) => {
   const queryParams = new URLSearchParams(params);
   const queryString = Object.keys(params).length ? `?${queryParams}` : '';
 

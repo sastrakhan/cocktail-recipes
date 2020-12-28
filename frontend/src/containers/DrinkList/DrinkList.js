@@ -2,7 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Col, List, Row } from 'antd';
 import { fetchCategories } from '../../features/categories/categoriesSlice';
-import { fetchDrinks } from '../../features/drinks/drinksSlice';
+import {
+  fetchDrinks,
+  fetchFilteredDrinks,
+  resetFilteredDrinksFulfilled,
+  resetFilteredDrinksLoading
+} from '../../features/drinks/drinksSlice';
 import { DrinkCard } from '../../components/DrinkCard/DrinkCard';
 import { FilterDrinks } from '../../components/FilterDrinks/FilterDrinks';
 import { SearchDrinks } from '../../components/SearchDrinks/SearchDrinks';
@@ -13,7 +18,7 @@ export const DrinkList = () => {
   const [queryParams, setQueryParams] = useState({});
 
   const {
-    drinks,
+    filteredDrinks,
     status: drinksStatus,
   } = useSelector((state) => state?.drinks) || {};
 
@@ -25,7 +30,13 @@ export const DrinkList = () => {
   const getDrinksHandler = (params = {}) => {
     const newParams = { ...queryParams, ...params };
     setQueryParams(newParams);
-    dispatch(fetchDrinks(newParams));
+    const cleanParamValues = Object.values(newParams).filter(n => n);
+    if (cleanParamValues.length) {
+      dispatch(fetchFilteredDrinks(newParams));
+    } else {
+      dispatch(resetFilteredDrinksLoading());
+      dispatch(resetFilteredDrinksFulfilled());
+    }
   };
 
   useEffect(() => {
@@ -40,7 +51,7 @@ export const DrinkList = () => {
   return (
     <>
       {
-        drinks && drinks.length ? (
+        filteredDrinks && filteredDrinks.length ? (
           <Row gutter={[16, 16]}>
             <Col md={12} lg={16}>
               <SearchDrinks loading={drinksStatus === 'loading'} onSearchHandler={getDrinksHandler}/>
@@ -49,13 +60,13 @@ export const DrinkList = () => {
               <FilterDrinks categories={categories} onFilterHandler={getDrinksHandler} loading={categoriesStatus === 'loading'}/>
             </Col>
             <Col md={6} lg={5}>
-              <SortDrinks drinks={drinks} onSortHandler={getDrinksHandler}/>
+              <SortDrinks drinks={filteredDrinks} onSortHandler={getDrinksHandler}/>
             </Col>
           </Row>
         ) : null
       }
       <List
-        dataSource={drinks}
+        dataSource={filteredDrinks}
         grid={{ gutter: 16, column: 4 }}
         loading={drinksStatus === 'loading' || categoriesStatus === 'loading'}
         renderItem={drink => (

@@ -4,13 +4,20 @@ import { getDrinkById, getDrinks } from '../../services/drinks';
 
 const initialState = {
   drinks: [],
+  filteredDrinks: [],
   error: null,
   status: 'idle',
 };
 
 export const fetchDrinks = createAsyncThunk(
   'drinks/fetchDrinks',
-  async (params = {}) => {
+  async () => {
+    return await getDrinks();
+  });
+
+export const fetchFilteredDrinks = createAsyncThunk(
+  'drinks/fetchFilteredDrinks',
+  async (params) => {
     return await getDrinks(params);
   });
 
@@ -23,7 +30,15 @@ export const fetchDrink = createAsyncThunk(
 const drinks = createSlice({
   name: 'drinks',
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    resetFilteredDrinksLoading(state) {
+      state.status = 'loading';
+    },
+    resetFilteredDrinksFulfilled(state) {
+      state.status = 'succeeded';
+      state.filteredDrinks = state.drinks;
+    },
+  },
   extraReducers: {
     [fetchDrink.pending]: (state) => {
       state.status = 'loading';
@@ -45,13 +60,30 @@ const drinks = createSlice({
     [fetchDrinks.fulfilled]: (state, action) => {
       state.status = 'succeeded';
       state.drinks = action.payload;
+      state.filteredDrinks = action.payload;
     },
     [fetchDrinks.rejected]: (state, action) => {
       state.status = 'failed';
       state.error = action.payload;
     },
+    [fetchFilteredDrinks.pending]: (state) => {
+      state.status = 'loading';
+    },
+    [fetchFilteredDrinks.fulfilled]: (state, action) => {
+      state.status = 'succeeded';
+      state.filteredDrinks = action.payload;
+    },
+    [fetchFilteredDrinks.rejected]: (state, action) => {
+      state.status = 'failed';
+      state.error = action.payload;
+    },
   },
 });
+
+export const {
+  resetFilteredDrinksLoading,
+  resetFilteredDrinksFulfilled,
+} = drinks.actions;
 
 export default drinks.reducer;
 
