@@ -1,8 +1,6 @@
-
-# Spiral
-Drinks code exercise
-
 # Overview
+Application to view, filter, and search cocktail recipes.
+
 * Backend: [Django Rest Framework](https://www.django-rest-framework.org/)
 * Frontend: [React](https://reactjs.org/)
 

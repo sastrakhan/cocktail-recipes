@@ -1,0 +1,194 @@
+_type: export
+__export_format: 4
+__export_date: 2020-12-28T06:23:51.465Z
+__export_source: insomnia.desktop.app:v2020.5.1
+resources:
+  - _id: req_ba4829a1aaf446feb9f9bc1a62cc142f
+    parentId: wrk_a66ae088f4be4173b9ebe3df7a162502
+    modified: 1609136549584
+    created: 1609023737202
+    url: "{{ _.baseUrl }}/api/drinks/"
+    name: Get Drinks
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - name: search
+        value: tea
+        description: ""
+        id: pair_52c85ad598ab48bd82910fc7b0e9e47b
+        disabled: true
+      - name: ordering
+        value: category
+        description: ""
+        id: pair_acc705dc5ca94328a7396d64946531e1
+        disabled: false
+      - name: category
+        value: 1,2
+        description: ""
+        id: pair_c799fda814d140efae3376a588279405
+        disabled: false
+    headers: []
+    authentication: {}
+    metaSortKey: -1609023737265
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: wrk_a66ae088f4be4173b9ebe3df7a162502
+    parentId: null
+    modified: 1609136572949
+    created: 1608760053321
+    name: Cocktail Recipes
+    description: ""
+    scope: null
+    _type: workspace
+  - _id: req_984943d633ee411086a547ebffcc74eb
+    parentId: wrk_a66ae088f4be4173b9ebe3df7a162502
+    modified: 1609136527761
+    created: 1609136081757
+    url: "{{ _.baseUrl }}/api/drinks/{% response 'body',
+      'req_5dd58d64ad4344ec9ac3f4eac2515b8f', 'b64::JC5pZA==::46b',
+      'no-history', 60 %}/"
+    name: Delete Drink
+    description: ""
+    method: DELETE
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1608990783480
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_5dd58d64ad4344ec9ac3f4eac2515b8f
+    parentId: wrk_a66ae088f4be4173b9ebe3df7a162502
+    modified: 1609089967591
+    created: 1609089875900
+    url: "{{ _.baseUrl }}/api/drinks/"
+    name: Create Drink
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: >-
+        {
+            "name": "Kami Test",
+            "alcoholic": "Alcoholic",
+            "glass": "Pint glass",
+            "instructions": "Foo Bar",
+            "instructions_zhhant": null,
+            "image": "https://www.thecocktaildb.com/images/media/drink/sxrrqq1454512852.jpg",
+            "ingredient1": "Who",
+            "ingredient2": "Knows",
+            "measure1": "1/2 pint",
+            "measure2": "1/2 pint",
+            "creative_commons_confirmed": "No",
+            "category": 8
+          }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_785f6f66fb644cc19af263707d66f034
+    authentication: {}
+    metaSortKey: -1608957829695
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_756d9476f793486e97e85d3ff9369c50
+    parentId: wrk_a66ae088f4be4173b9ebe3df7a162502
+    modified: 1609136513658
+    created: 1609136118921
+    url: "{{ _.baseUrl }}/api/drinks/{% response 'body',
+      'req_5dd58d64ad4344ec9ac3f4eac2515b8f', 'b64::JC5pZA==::46b',
+      'no-history', 60 %}/"
+    name: Update Drink
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+            "name": "Kami Test Update",
+            "instructions": "Baz Qux"
+          }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+        id: pair_785f6f66fb644cc19af263707d66f034
+    authentication: {}
+    metaSortKey: -1608924875910
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_9d742022a15846879df06ebd0c1352f8
+    parentId: wrk_a66ae088f4be4173b9ebe3df7a162502
+    modified: 1609047314543
+    created: 1609047303021
+    url: "{{ _.baseUrl }}/api/categories/"
+    name: Drink Categories
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers: []
+    authentication: {}
+    metaSortKey: -1608891922125
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_5d0d6add37aaf31096234e2a8cb80ee1fb6f6d65
+    parentId: wrk_a66ae088f4be4173b9ebe3df7a162502
+    modified: 1608760093477
+    created: 1608760053518
+    name: Base Environment
+    data:
+      baseUrl: localhost:8000
+    dataPropertyOrder:
+      "&":
+        - baseUrl
+    color: null
+    isPrivate: false
+    metaSortKey: 1608760053518
+    _type: environment
+  - _id: jar_5d0d6add37aaf31096234e2a8cb80ee1fb6f6d65
+    parentId: wrk_a66ae088f4be4173b9ebe3df7a162502
+    modified: 1608760053524
+    created: 1608760053524
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: spc_53c197ca60d347e3855917dbae389f23
+    parentId: wrk_a66ae088f4be4173b9ebe3df7a162502
+    modified: 1608760053329
+    created: 1608760053329
+    fileName: Packback
+    contents: ""
+    contentType: yaml
+    _type: api_spec
