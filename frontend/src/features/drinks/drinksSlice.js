@@ -4,7 +4,6 @@ import { getDrinkById, getDrinks } from '../../services/drinks';
 
 const initialState = {
   drinks: [],
-  isLoading: false,
   error: null,
   status: 'idle',
 };

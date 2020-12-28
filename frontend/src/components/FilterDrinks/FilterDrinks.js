@@ -3,12 +3,12 @@ import { Checkbox, Dropdown, Menu } from 'antd';
 import { FilterOutlined, LoadingOutlined } from '@ant-design/icons';
 
 export const FilterDrinks = ({ categories, loading, onFilterHandler }) => {
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState([]);
 
   const onFilter = (id) => {
     setSelectedCategory((prevState) => {
-      if (prevState === id) {
-        return selectedCategory.filter(category => category.id !== id)
+      if (prevState.includes(id)) {
+        return selectedCategory.filter(category => category !== id)
       } else {
         return [...selectedCategory, id]
       }

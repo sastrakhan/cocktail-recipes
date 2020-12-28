@@ -4,8 +4,8 @@ import { getCategories } from '../../services/drinks';
 
 const initialState = {
   categories: [],
-  isLoading: false,
-  error: null
+  error: null,
+  status: 'idle',
 };
 
 export const fetchCategories = createAsyncThunk(
